@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/cabinet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="../js/cabinet.js" defer></script>
+    <title>Valorant Demo</title>
+</head>
+<body ng-app="indexApp" ng-controller="CabinetController">
+    <header>
+        <div class="header__container">
+            <div class="header__logos">
+                <img src="../images/riot_games_logo.svg" alt="riot_games_logo">
+                <hr>
+                <img src="../images/valorant_logo.svg" alt="valorant_logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html" ng-if="currentUser">Shop</a></li>
+                    <li><a href="cart.html" ng-if="currentUser">Cart</a></li>
+                </ul>
+            </nav>
+            <div class="header__account">
+                <button class="sign_in" ng-if="!currentUser" onclick="window.location.href='login.html'">Log In</button>
+                <button class="sign_up" ng-if="!currentUser" onclick="window.location.href='register.html'">Sign Up</button>
+                <button class="cabinet" ng-if="currentUser"><a href="cabinet.html">Cabinet</a></button>
+                <button class="sign_out" ng-if="currentUser" ng-click="logout()">Log Out</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="cabinet__container">
+            <h2>Account Information</h2>
+            <div class="cabinet__info">
+                <label for="username">Email:</label>
+                <input type="text" ng-model="currentUser.email" readonly>
+            </div>
+            <div class="cabinet__info">
+                <label for="password">Password:</label>
+                <input type="text" ng-model="currentUser.password" readonly>
+            </div>
+            <h2>Change Password</h2>
+            <form name="changePasswordForm" ng-submit="changePassword()">
+                <div class="cabinet__info">
+                    <label for="newPassword">New Password:</label>
+                    <input type="password" id="newPassword" ng-model="newPassword" required>
+                </div>
+                <div class="cabinet__info">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" ng-model="confirmPassword" required>
+                </div>
+                <div class="cabinet__info">
+                    <span ng-show="passwordError">{{passwordError}}</span>
+                </div>
+                <button type="submit" ng-disabled="changePasswordForm.$invalid || newPassword !== confirmPassword">Change Password</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <div class="footer__container">
+            <div class="footer__logos">    
+                <img src="../images/riot_games_logo.svg" alt="riot_games_logo">
+                <img src="../images/valorant_logo.svg" alt="valorant_logo">
+            </div>
+            <p class="footer__copyright">© 2020-2024 Riot Games, Inc. RIOT GAMES, VALORANT и все связанные с ними логотипы являются товарными знаками, знаками обслуживания и/или зарегистрированными товарными знаками Riot Games, Inc.</p>
+        </div>
+    </footer>
+</body>
+</html>
